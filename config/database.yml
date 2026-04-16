@@ -15,5 +15,10 @@ test:
   database: health_travel_app_test
 
 production:
-  <<: *default
-  database: health_travel_app_production
+  primary:
+    <<: *default
+    database: <%= ENV["DATABASE_URL"] %>
+
+  cable:
+    <<: *default
+    database: <%= ENV["DATABASE_URL"] %>
