@@ -1,0 +1,189 @@
+<div class="avatar-area">
+  <%= image_tag "character/level#{@travel_progress.level}.png",
+        class: ["avatar-image", ("levelup-animation" if @travel_progress.level_up?)] %>
+
+  <p class="avatar-level">レベル：<%= @travel_progress.level %></p>
+  <p class="avatar-comment"><%= @travel_progress.level_comment %></p>
+</div>
+
+<div class="dashboard-container">
+  <h1>ダッシュボード</h1>
+
+  <div class="dashboard-card">
+    <h2>ユーザー情報</h2>
+    <p><strong>メール:</strong> <%= current_user.email %></p>
+    <p><strong>ID:</strong> <%= current_user.id %></p>
+    <p><strong>登録日:</strong> <%= current_user.created_at.strftime("%Y-%m-%d") %></p>
+  </div>
+
+  <div class="dashboard-card">
+    <h2>今日のステータス</h2>
+    今日の運動時間：<%= minutes_to_hm(@today_minutes) %>
+    <p>今日の距離：<%= @today_distance %> km</p>
+  </div>
+
+  <div class="dashboard-card">
+    <h2>旅の進捗</h2>
+    <p>累計距離：<%= @travel_progress.total_distance.round(1) %> km</p>
+    <p>現在地：<%= @travel_progress.current_location %></p>
+    <p>次の目的地：<%= @travel_progress.next_prefecture || "ゴール！" %></p>
+    <p>次の県まで：<%= @travel_progress.distance_to_next %> km</p>
+  </div>
+</div>
+
+<hr>
+
+<h2>旅の進捗バー</h2>
+
+<% if @progress.present? %>
+  <% total_route_distance = TravelProgress::ROUTE.last[1] %>
+  <% percent = (@progress.total_distance / total_route_distance * 100).round(1) %>
+
+  <div style="width: 100%; background: #ddd; height: 20px; border-radius: 10px; margin-bottom: 10px;">
+    <div style="width: <%= percent %>%; background: #4caf50; height: 20px; border-radius: 10px;"></div>
+  </div>
+
+  <p><%= percent %>% 進んだよ！</p>
+<% else %>
+  <p>旅の進捗データがありません。</p>
+<% end %>
+
+<hr>
+
+<h2>運動記録一覧</h2>
+
+<%= link_to "新規記録", new_exercise_path %>
+
+<table>
+  <tr>
+    <th>時間</th>
+    <th>カロリー</th>
+    <th>距離</th>
+    <th>日時</th>
+  </tr>
+
+  <% @exercises.each do |e| %>
+    <tr>
+      <td><%= e.formatted_time %></td>
+      <td><%= e.calories %> kcal</td>
+      <td><%= e.distance %> km</td>
+      <td><%= e.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+    </tr>
+  <% end %>
+</table>
+
+<hr>
+
+<h2>日本地図（横マップ＋名物アイコン）</h2>
+
+<% if @progress.nil? %>
+  <p>まだ旅の進捗データがありません。</p>
+  <% return %>
+<% end %>
+
+<% widths = {
+  "東京都" => 70,
+  "神奈川県" => 50,
+  "静岡県" => 150,
+  "愛知県" => 100,
+  "三重県" => 80,
+  "京都府" => 70,
+  "大阪府" => 60,
+  "兵庫県" => 120
+} %>
+
+<% icons = {
+  "東京都" => "🗼",
+  "神奈川県" => "🌊",
+  "静岡県" => "🗻",
+  "愛知県" => "🍤",
+  "三重県" => "⛩️",
+  "京都府" => "🏯",
+  "大阪府" => "🐙",
+  "兵庫県" => "🥩"
+} %>
+
+<% colors = {
+  "東京都" => "#e3f2fd",
+  "神奈川県" => "#e8f5e9",
+  "静岡県" => "#fff3e0",
+  "愛知県" => "#fce4ec",
+  "三重県" => "#ede7f6",
+  "京都府" => "#f3e5f5",
+  "大阪府" => "#e0f7fa",
+  "兵庫県" => "#f1f8e9"
+} %>
+
+<div style="
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: 20px;
+  padding-bottom: 6px;
+">
+
+  <% TravelProgress::ROUTE.each_with_index do |(pref, distance), index| %>
+    <% is_current = (@progress.current_location == pref) %>
+
+    <% next_distance =
+      if index < TravelProgress::ROUTE.size - 1
+        TravelProgress::ROUTE[index + 1][1]
+      else
+        TravelProgress::ROUTE.last[1]
+      end
+    %>
+
+    <% section_start = distance %>
+    <% section_end   = next_distance %>
+    <% section_length = section_end - section_start %>
+
+    <% inner_percent =
+      if is_current && section_length > 0
+        progress_in_section = @progress.total_distance - section_start
+        [(progress_in_section / section_length * 100).round(1), 100].min
+      else
+        0
+      end
+    %>
+
+    <div class="<%= 'current-pref' if is_current %>" style="
+      width: <%= widths[pref] %>px;
+      min-width: <%= widths[pref] %>px;
+      padding: 10px 6px;
+      border-radius: 8px;
+      background: <%= is_current ? '#4caf50' : colors[pref] %>;
+      color: <%= is_current ? 'white' : '#333' %>;
+      border: 1px solid #ccc;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.5;
+      font-size: 15px;
+      font-weight: <%= is_current ? 'bold' : 'normal' %>;
+    ">
+      <div style="font-size: 22px; margin-bottom: 4px;">
+        <%= icons[pref] %>
+      </div>
+
+      <div class="vertical-text" style="margin-bottom: 4px;">
+        <%= pref %>
+        <% if is_current %> ★ <% end %>
+      </div>
+
+      <% if is_current %>
+        <div style="width: 80%; height: 4px; background: rgba(255,255,255,0.5); border-radius: 2px; margin-top: 4px;">
+          <div style="width: <%= inner_percent %>%; height: 4px; background: yellow; border-radius: 2px;"></div>
+        </div>
+        <div style="font-size: 11px; margin-top: 2px;">
+          県内 <%= inner_percent %>% 進行中
+        </div>
+      <% end %>
+    </div>
+
+  <% end %>
+
+</div>

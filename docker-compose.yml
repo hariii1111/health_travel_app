@@ -2,16 +2,15 @@ version: '3.9'
 
 services:
   web:
-    build: .
-    command: /rails/bin/rails server -b 0.0.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/rails
     ports:
       - "3000:3000"
     depends_on:
       - db
-    environment:
-      RAILS_ENV: development
-    volumes:
-      - .:/rails
 
   db:
     image: postgres:15

@@ -1,0 +1,12 @@
+<h1>ログアウトしました</h1>
+
+<p>またのご利用をお待ちしています。</p>
+
+<div style="margin-top: 20px;">
+  <%= link_to "ログインへ", new_user_session_path, class: "btn btn-primary" %>
+</div>
+
+<div style="margin-top: 10px;">
+  <%# 未ログイン時は root_path = home#index %>
+  <%= link_to "ホームへ戻る", new_user_session_path, class: "btn btn-secondary" %>
+</div>

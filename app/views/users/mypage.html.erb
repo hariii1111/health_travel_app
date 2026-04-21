@@ -1,0 +1,47 @@
+<h1>マイページ</h1>
+
+<div class="mypage-card">
+  <div class="mypage-title">累計データ</div>
+
+  総運動時間：<%= minutes_to_hm(@total_minutes) %>
+  <p>累計距離：<%= @total_distance.round(2) %> km</p>
+  <p>現在のレベル：Lv<%= current_user.character_status.level %></p>
+</div>
+
+<p><%= link_to "運動記録一覧へ", exercises_path %></p>  <!-- ← これを追加 -->
+
+<%= link_to "ダッシュボードへ戻る", dashboard_path %>
+
+<p><strong>キャラからのメッセージ：</strong> <%= @progress.level_comment %></p>
+
+<!-- キャラクター表示 -->
+<h2>キャラクター</h2>
+
+<div style="text-align: center; margin-bottom: 20px;">
+  <%= image_tag current_user.character_status.image_path,
+        class: ("levelup-animation" if current_user.character_status.level_up?),
+        style: "width: 150px; height: 150px; object-fit: contain;" %>
+</div>
+
+<p>レベル：<%= current_user.character_status.level %></p>
+<p>経験値：<%= current_user.character_status.exp.round(1) %></p>
+
+<% if current_user.character_status.level_up? %>
+  <p style="color: #ff4081; font-weight: bold; font-size: 18px; text-align: center;">
+    🎉 レベルアップ！ 🎉
+  </p>
+<% end %>
+
+<!-- 最新の運動記録 -->
+<h2>最新の運動記録</h2>
+
+<% last = @exercises.last %>
+<% if last.present? %>
+  <p>時間：<%= last.formatted_time %></p>
+  <p>METS：<%= last.mets %></p>
+  <p>消費カロリー：<%= last.calories %> kcal</p>
+  <p>距離：<%= last.distance %> km</p>
+  <p>記録日：<%= last.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+<% else %>
+  <p>まだ運動記録がありません。</p>
+<% end %>

@@ -66,8 +66,9 @@ RUN groupadd --system --gid 1000 rails && \
 USER 1000:1000
 
 # Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# ここまでに Ruby, bundler, app の COPY などがある
 
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
-CMD ["/rails/bin/rails", "server", "-b", "0.0.0.0"]
+EXPOSE 3000
+
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]

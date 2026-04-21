@@ -1,10 +1,129 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* アバター表示エリア */
+.avatar-area {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.avatar-image {
+  width: 200px !important;
+  height: 200px !important;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #f0f0f0;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.avatar-level,
+.avatar-exp {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+/* ダッシュボードのカード UI */
+.dashboard-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.dashboard-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-card {
+  background: #E8F4FF; /* ← 薄い空色に変更 */
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.dashboard-card h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  border-left: 4px solid #007aff;
+  padding-left: 8px;
+}
+
+.dashboard-card p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.mypage-card {
+  background: #E8F4FF;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.note {
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.mypage-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 現在地の点滅アニメーション */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.current-pref {
+  animation: blink 1.2s infinite;
+}
+
+/* 県名を縦書きにする */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* ナビ共通 */
+.nav-item,
+.header-nav {
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #333;
+  background: #e9e9e9;
+  margin: 0 4px;
+  display: inline-block;
+}
+
+/* アクティブ状態 */
+.active-nav {
+  background: #bfbfbf;
+  font-weight: bold;
+}
+
+/* 下部ナビ固定 */
+body {
+  padding-bottom: 80px; /* 下部ナビの高さ分の余白 */
+  background-color: #FFF8E7; /* 薄いクリーム色 */
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  z-index: 1000;
+}
