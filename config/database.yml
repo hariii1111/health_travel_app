@@ -21,6 +21,7 @@ production:
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
     port: <%= ENV["DB_PORT"] %>
+    sslmode: require
 
   cable:
     <<: *default
@@ -29,6 +30,7 @@ production:
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
     port: <%= ENV["DB_PORT"] %>
+    sslmode: require
 
   queue:
     <<: *default
@@ -37,6 +39,7 @@ production:
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
     port: <%= ENV["DB_PORT"] %>
+    sslmode: require
 
   cache:
     <<: *default
@@ -45,3 +48,4 @@ production:
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
     port: <%= ENV["DB_PORT"] %>
+    sslmode: require
