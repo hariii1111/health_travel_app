@@ -22,7 +22,18 @@ production:
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
     port: <%= ENV["DB_PORT"] %>
-    sslmode: require   # ← これが絶対必要！
+    sslmode: require
+
+  primary_replica:
+    <<: *default
+    database: <%= ENV["DB_NAME"] %>
+    username: <%= ENV["DB_USER"] %>
+    password: <%= ENV["DB_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
+    port: <%= ENV["DB_PORT"] %>
+    sslmode: require
+    replica: true
+
 
   cable:
     <<: *default
