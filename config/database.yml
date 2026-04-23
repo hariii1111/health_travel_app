@@ -1,31 +1,29 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
-  username: postgres
-  password: password
   pool: 5
 
 development:
-  <<: *default
-  database: health_travel_app_development
+  primary:
+    <<: *default
+    database: health_travel_app_development
 
 test:
-  <<: *default
-  database: health_travel_app_test
+  primary:
+    <<: *default
+    database: health_travel_app_test
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: <%= ENV["DB_NAME"] %>
-  username: <%= ENV["DB_USER"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  host: <%= ENV["DB_HOST"] %>
-  port: <%= ENV["DB_PORT"] %>
+  primary:
+    <<: *default
+    database: <%= ENV["DB_NAME"] %>
+    username: <%= ENV["DB_USER"] %>
+    password: <%= ENV["DB_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
+    port: <%= ENV["DB_PORT"] %>
 
   cable:
-    adapter: postgresql
-    encoding: unicode
+    <<: *default
     database: <%= ENV["DB_NAME"] %>
     username: <%= ENV["DB_USER"] %>
     password: <%= ENV["DB_PASSWORD"] %>
@@ -33,8 +31,7 @@ production:
     port: <%= ENV["DB_PORT"] %>
 
   queue:
-    adapter: postgresql
-    encoding: unicode
+    <<: *default
     database: <%= ENV["DB_NAME"] %>
     username: <%= ENV["DB_USER"] %>
     password: <%= ENV["DB_PASSWORD"] %>
@@ -42,8 +39,7 @@ production:
     port: <%= ENV["DB_PORT"] %>
 
   cache:
-    adapter: postgresql
-    encoding: unicode
+    <<: *default
     database: <%= ENV["DB_NAME"] %>
     username: <%= ENV["DB_USER"] %>
     password: <%= ENV["DB_PASSWORD"] %>
