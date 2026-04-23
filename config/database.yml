@@ -1,63 +1,22 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
-  sslmode: require
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  primary:
-    <<: *default
-    database: health_travel_app_development
+  <<: *default
+  database: myapp_development
+  username: root
+  password: password
+  host: db
 
 test:
-  primary:
-    <<: *default
-    database: health_travel_app_test
+  <<: *default
+  database: myapp_test
+  username: root
+  password: password
+  host: db
 
 production:
-  primary:
-    <<: *default
-    database: <%= ENV["DB_NAME"] %>
-    username: <%= ENV["DB_USER"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
-    port: <%= ENV["DB_PORT"] %>
-    sslmode: require
-
-  primary_replica:
-    <<: *default
-    database: <%= ENV["DB_NAME"] %>
-    username: <%= ENV["DB_USER"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
-    port: <%= ENV["DB_PORT"] %>
-    sslmode: require
-    replica: true
-
-
-  cable:
-    <<: *default
-    database: <%= ENV["DB_NAME"] %>
-    username: <%= ENV["DB_USER"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
-    port: <%= ENV["DB_PORT"] %>
-    sslmode: require
-
-  queue:
-    <<: *default
-    database: <%= ENV["DB_NAME"] %>
-    username: <%= ENV["DB_USER"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
-    port: <%= ENV["DB_PORT"] %>
-    sslmode: require
-
-  cache:
-    <<: *default
-    database: <%= ENV["DB_NAME"] %>
-    username: <%= ENV["DB_USER"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
-    port: <%= ENV["DB_PORT"] %>
-    sslmode: require
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
