@@ -71,7 +71,3 @@ USER 1000:1000
 EXPOSE 3000
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
-# rebuild
-# rebuild2
-# rebuild3
