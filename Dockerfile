@@ -73,3 +73,4 @@ EXPOSE 3000
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
 # rebuild
+# rebuild2
