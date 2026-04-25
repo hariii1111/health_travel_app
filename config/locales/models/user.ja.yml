@@ -1,9 +1,14 @@
 ja:
   activerecord:
-    models:
-      user: "ユーザー"
     attributes:
       user:
         email: "メールアドレス"
         password: "パスワード"
-        password_confirmation: "パスワード（確認用）"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "を入力してください"
+            password:
+              blank: "を入力してください"

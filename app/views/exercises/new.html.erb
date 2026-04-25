@@ -2,9 +2,12 @@
 
 <% if @exercise.errors.any? %>
   <div class="alert alert-danger">
-    <% @exercise.errors.full_messages.each do |msg| %>
-      <p><%= msg %></p>
-    <% end %>
+    <p><strong><%= @exercise.errors.count %> 件のエラーがあります</strong></p>
+    <ul>
+      <% @exercise.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
 
