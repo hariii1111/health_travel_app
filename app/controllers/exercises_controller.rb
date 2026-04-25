@@ -10,13 +10,15 @@ class ExercisesController < ApplicationController
   end
 
   def create
-    @exercise = current_user.exercises.new(exercise_params)
-    if @exercise.save
-      redirect_to exercises_path, notice: "運動記録を追加しました"
-    else
-      render :new
-    end
+  @exercise = current_user.exercises.new(exercise_params)
+
+  if @exercise.save
+    redirect_to exercises_path, notice: "記録しました"
+  else
+    render :new, status: :unprocessable_entity
   end
+end
+
 
   def edit
   end

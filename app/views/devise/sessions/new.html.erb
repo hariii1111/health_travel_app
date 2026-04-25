@@ -1,12 +1,6 @@
 <h2>ログイン</h2>
 
-<% if resource.errors.any? %>
-  <div class="alert alert-danger">
-    <% resource.errors.full_messages.each do |msg| %>
-      <p><%= msg %></p>
-    <% end %>
-  </div>
-<% end %>
+<%= render "devise/shared/error_messages", resource: resource %>
 
 <%= form_for(resource,
              as: resource_name,
