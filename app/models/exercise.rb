@@ -1,14 +1,17 @@
 class Exercise < ApplicationRecord
   belongs_to :user
 
-  validates :minutes, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :minutes, presence: true,
+                      numericality: { only_integer: true, greater_than: 0 }
+
+  validates :mets, presence: true,
+                   numericality: true
 
   before_validation :calculate_values
   after_create :add_exp_to_character
   after_save :recalc_and_update_level
   after_destroy :recalc_and_update_level
 
-  # ★ ここに formatted_time を入れる
   def formatted_time
     hours = minutes / 60
     mins  = minutes % 60

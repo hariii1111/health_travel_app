@@ -1,5 +1,13 @@
 <h2>運動記録を追加</h2>
 
+<% if @exercise.errors.any? %>
+  <div class="alert alert-danger">
+    <% @exercise.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+    <% end %>
+  </div>
+<% end %>
+
 <%= form_with model: @exercise do |f| %>
   <div>
     <%= f.label :minutes, "運動時間（分）" %>

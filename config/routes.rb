@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: [:passwords]
 
   get "dashboard", to: "users#dashboard"
   get "mypage", to: "users#mypage"

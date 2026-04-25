@@ -4,7 +4,8 @@ class User < ApplicationRecord
   has_one :character_status, dependent: :destroy
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :rememberable, :validatable
+
 
   after_create :create_travel_progress
   after_create :create_character_status
