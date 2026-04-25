@@ -1,34 +1,29 @@
 <h2>新規登録</h2>
 
-<%= render "devise/shared/error_messages", resource: resource %>
-
-<%= form_for(resource,
-             as: resource_name,
-             url: registration_path(resource_name),
-             data: { turbo: false }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <p><%= f.label :email, "メールアドレス" %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "off" %></p>
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <p><%= f.label :password, "パスワード" %></p>
+    <%= f.label :password, "パスワード" %><br />
     <% if @minimum_password_length %>
-      <p><em>(最低 <%= @minimum_password_length %> 文字)</em></p>
+      <em>(最低 <%= @minimum_password_length %> 文字)</em><br />
     <% end %>
-    <p><%= f.password_field :password, autocomplete: "off" %></p>
+    <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <p><%= f.label :password_confirmation, "パスワード（確認用）" %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "off" %></p>
+    <%= f.label :password_confirmation, "パスワード（確認）" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="actions">
     <%= f.submit "登録する" %>
   </div>
-
 <% end %>
 
 <div style="margin-top: 10px;">

@@ -1,0 +1,38 @@
+ja:
+  devise:
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+
+    failure:
+      invalid: "メールアドレスまたはパスワードが違います"
+      not_found_in_database: "メールアドレスまたはパスワードが違います"
+      unauthenticated: "ログインしてください"
+      unconfirmed: "メールアドレスの確認が必要です"
+      locked: "アカウントがロックされています"
+      last_attempt: "あと1回失敗するとアカウントがロックされます"
+
+    registrations:
+      user:
+        signed_up: "アカウント登録が完了しました"
+        updated: "アカウント情報を更新しました"
+        destroyed: "アカウントを削除しました"
+
+    sessions:
+      user:
+        signed_in: "ログインしました"
+        signed_out: "ログアウトしました"
+
+    passwords:
+      send_instructions: "パスワード再設定用のメールを送信しました"
+      updated: "パスワードを変更しました"
+
+  errors:
+    messages:
+      blank: "を入力してください"
+      taken: "はすでに使用されています"
+      not_found: "見つかりませんでした"
+      already_confirmed: "すでに確認済みです"
+      confirmation_period_expired: "確認期限が切れています。新しい確認メールをリクエストしてください。"
+      not_a_number: "は数値で入力してください"
