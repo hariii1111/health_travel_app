@@ -1,27 +1,25 @@
 <% unless user_signed_in? %>
-  <!-- ▼▼ ログイン前：タイトル画面 ▼▼ -->
-  <div class="home-container">
-    <h1 class="app-title">Move Journey</h1>
-    <p class="app-subtitle">歩くたび、日本をめぐる。</p>
+  <div class="home-hero">
+    <div class="overlay"></div>
 
-    <div class="home-buttons">
-      <%= link_to "ログインはこちら", new_user_session_path, class: "home-btn primary" %>
-      <%= link_to "新規登録はこちら", new_user_registration_path, class: "home-btn secondary" %>
+    <div class="hero-content">
+      <p class="hero-subtitle">歩くたび、日本をめぐる。</p>
+
+      <div class="hero-buttons">
+        <%= link_to "ログイン", new_user_session_path, class: "hero-btn primary" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "hero-btn secondary" %>
+      </div>
     </div>
   </div>
-
-  <% return %>
-<% end %>
-
-<!-- ▼▼ ログイン後：ダッシュボード（今まで通り） ▼▼ -->
-<div class="dashboard-container">
-  <h2>ダッシュボード</h2>
-
-  <% if @exercises.any? %>
-    <% @exercises.each do |exercise| %>
-      <p><%= exercise.minutes %> 分 / <%= exercise.mets %> METs</p>
+<% else %>
+  <div class="dashboard-container">
+    <h2>ダッシュボード</h2>
+    <% if @exercises.any? %>
+      <% @exercises.each do |exercise| %>
+        <p><%= exercise.minutes %> 分 / <%= exercise.mets %> METs</p>
+      <% end %>
+    <% else %>
+      <p>まだ運動記録がありません。</p>
     <% end %>
-  <% else %>
-    <p>まだ運動記録がありません。</p>
-  <% end %>
-</div>
+  </div>
+<% end %>

@@ -3,3 +3,4 @@ touch app/assets/images/character/level2.png
 touch app/assets/images/character/level3.png
 touch app/assets/images/character/level4.png
 touch app/assets/images/character/level5.png
+<%= image_tag "background.png" %>
