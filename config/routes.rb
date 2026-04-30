@@ -12,13 +12,8 @@ Rails.application.routes.draw do
 
   resources :exercises, only: [:index, :new, :create, :edit, :update, :destroy]
 
-  authenticated :user do
-    root "users#home", as: :authenticated_root
-  end
-
-  unauthenticated do
-    root "home#index"
-  end
+  # ★ root は常に home#index に固定
+  root "home#index"
 
   devise_scope :user do
     get "logout_complete", to: "home#logout"

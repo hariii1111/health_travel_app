@@ -35,8 +35,8 @@
     <!-- 下部ナビ（ログイン時のみ表示） -->
 <% if user_signed_in? %>
   <nav class="bottom-nav">
-    <%= link_to "ホーム", authenticated_root_path,
-          class: ["nav-item", ("active-nav" if current_page?(authenticated_root_path))] %>
+    <%= link_to "ホーム", root_path,
+          class: ["nav-item", ("active-nav" if current_page?(root_path))] %>
 
     <%= link_to "ダッシュボード", dashboard_path,
           class: ["nav-item", ("active-nav" if current_page?(dashboard_path))] %>
